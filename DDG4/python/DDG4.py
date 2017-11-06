@@ -28,7 +28,7 @@ def loadDDG4():
     gSystem.SetDynamicPath(os.environ['DD4HEP_LIBRARY_PATH'])
 
   result = gSystem.Load("libDDG4Plugins")
-  if 0 != result:
+  if result < 0:
     raise Exception('DDG4.py: Failed to load the DDG4 library libDDG4Plugins: '+gSystem.GetErrorStr())
   from ROOT import dd4hep as module
   return module
@@ -614,7 +614,7 @@ class Geant4:
     phys.adopt(opt)
     return opt
   
-  def setupGun(self, name, particle, energy, isotrop=True, multiplicity=1, position=(0.0,0.0,0.0),**args):
+  def setupGun(self, name, particle, energy, isotrop=True, multiplicity=1, position=(0.0,0.0,0.0),register=True, **args):
     gun = GeneratorAction(self.kernel(),"Geant4ParticleGun/"+name,True)
     for i in args.items():
       setattr(gun,i[0],i[1])
@@ -624,7 +624,8 @@ class Geant4:
     gun.position     = position
     gun.isotrop      = isotrop
     gun.enableUI()
-    self.kernel().generatorAction().add(gun)
+    if register:
+      self.kernel().generatorAction().add(gun)
     return gun
 
   """

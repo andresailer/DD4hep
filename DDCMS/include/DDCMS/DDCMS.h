@@ -114,7 +114,6 @@ namespace dd4hep {
       std::map<std::string, Rotation3D>  rotations;
       std::map<std::string, Solid>       shapes;
       std::map<std::string, Volume>      volumes;
-      std::map<std::string, std::string> vismaterial;
       std::set<std::string>              disabledAlgs;
       std::vector<std::string>           namespaces;
       bool geo_inited = false;
@@ -229,9 +228,6 @@ namespace dd4hep {
 
     /// Helper: Convert the name of a placed volume into a subdetector name
     std::string detElementName(PlacedVolume pv);
-    /// Compute the material fraction of a given element in a volume 
-    double material_fraction(Volume vol, const TGeoElement* e);
-
     /// Create 3D rotation matrix from angles.
     Rotation3D make_rotation3D(double thetaX, double phiX,
                                double thetaY, double phiY,

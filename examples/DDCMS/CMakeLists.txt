@@ -26,8 +26,10 @@ dd4hep_package (DDCMS MAJOR 0 MINOR 0 PATCH 1
 #------------------------------------------------------------------------------
 dd4hep_add_plugin(DDCMSexample SOURCES src/*.cpp)
 #---Package installation procedure(s) -----------------------------------------
-dd4hep_install_dir( data DESTINATION ${DD4hep_DIR}/examples/DDCMS )
-dd4hep_install_dir( eve  DESTINATION ${DD4hep_DIR}/examples/DDCMS )
+dd4hep_install_dir( data    DESTINATION ${DD4hep_DIR}/examples/DDCMS )
+dd4hep_install_dir( eve     DESTINATION ${DD4hep_DIR}/examples/DDCMS )
+dd4hep_install_dir( scripts DESTINATION ${DD4hep_DIR}/examples/DDCMS )
+#
 #---Testing--------------------------------------------------------------------
 dd4hep_configure_scripts ( DDCMS DEFAULT_SETUP WITH_TESTS )
 #
@@ -70,7 +72,7 @@ dd4hep_add_test_reg( DDCMS_DumpDetElements
   EXEC_ARGS  geoPluginRun -print WARNING
   -input file:${CMAKE_CURRENT_SOURCE_DIR}/data/dd4hep-config.xml
   -destroy -plugin DD4hep_DetectorDump -sensitive
-  REGEX_PASS "Scanned a total of 36101 elements."
+  REGEX_PASS "Scanned a total of 36096 elements."
   REGEX_FAIL "Exception"
   REGEX_FAIL "FAILED"
   )
@@ -100,18 +102,24 @@ dd4hep_add_test_reg( DDCMS_VolumeMgrTest_TIB
   )
 #
 #  Dump CMS detector element tree of SD TOB
-#  Sucks. To be investigated. VolumeManager does not work!
-#dd4hep_add_test_reg( DDCMS_VolumeMgrTest_TOB
-#  COMMAND    "${CMAKE_INSTALL_PREFIX}/bin/run_test_DDCMS.sh"
-#  EXEC_ARGS  geoPluginRun
-#  -input file:${CMAKE_CURRENT_SOURCE_DIR}/data/dd4hep-config.xml
-#  -destroy -print WARNING
-#  -plugin DD4hep_VolumeMgrTest TOB_1
-#  REGEX_PASS "PASSED: Checked 150699 objects. Num.Errors:0"
-#  REGEX_FAIL "Exception"
-#  REGEX_FAIL "FAILED"
-#  )
-
+dd4hep_add_test_reg( DDCMS_VolumeMgrTest_TOB
+  COMMAND    "${CMAKE_INSTALL_PREFIX}/bin/run_test_DDCMS.sh"
+  EXEC_ARGS  geoPluginRun
+  -input file:${CMAKE_CURRENT_SOURCE_DIR}/data/dd4hep-config.xml
+  -destroy -print WARNING
+  -plugin DD4hep_VolumeMgrTest TOB_1
+  REGEX_PASS "PASSED: Checked 150699 objects. Num.Errors:0"
+  REGEX_FAIL "Exception"
+  REGEX_FAIL "FAILED"
+  )
+#
+#  Dump CMS detector element tree of SD TOB
+dd4hep_add_test_reg( DDCMS_Geant4_LONGTEST
+  COMMAND    "${CMAKE_INSTALL_PREFIX}/bin/run_test_DDCMS.sh"
+  EXEC_ARGS  python ${CMAKE_CURRENT_SOURCE_DIR}/scripts/CMSTrackerSim.py batch test numevents 2
+  REGEX_PASS "\\+\\+\\+ Finished run 0 after 2 events \\(2 events in total\\)"
+  REGEX_FAIL "Exception;EXCEPTION;ERROR;FAILED"
+  )
 #
 #  Test saving geometry to ROOT file
 dd4hep_add_test_reg( DDCMS_Persist_Save_LONGTEST
