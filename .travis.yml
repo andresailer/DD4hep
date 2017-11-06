@@ -7,10 +7,17 @@ services:
 env:
   matrix:
     - COMPILER=gcc
+    - COMPILER=llvm
 
-# command to run tests
-script:
-  - env
+stages:
+  - build
+  - trigger
+
+jobs:
+  include:
+    - stage: build
+      script: echo $COMPILER
+    - stage: trigger
 
 # Don't send e-mail notifications
 notifications:
