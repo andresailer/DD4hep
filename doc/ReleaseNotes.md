@@ -1,5 +1,7 @@
 # v01-06
 
+# v01-06
+
 # v01-05
 
 * 2017-11-10 Dan Protopopescu ([PR#262](https://github.com/aidaSoft/DD4hep/pull/262))
