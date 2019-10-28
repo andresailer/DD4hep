@@ -2,8 +2,11 @@ message(STATUS " *** Gaudi listcomponents: Generate map for ${libname} ..." )
   #
   #  Running listcomponents from DD4hep
   #   
-  FIND_PROGRAM( Gaudi_listcomponents_CMD listcomponents PATHS ${genmap_install_dir}/../bin ${DD4hep_DIR}/bin
-    NO_DEFAULT_PATH NO_CMAKE_PATH)
+  # FIND_PROGRAM( Gaudi_listcomponents_CMD listcomponents
+  #   PATHS
+  #     ${genmap_install_dir}/../bin
+  #     ${DD4hep_DIR}/bin 
+  #   NO_DEFAULT_PATH NO_CMAKE_PATH)
   GET_FILENAME_COMPONENT(GAUDI_LISTCOMP_INSTALL ${Gaudi_listcomponents_CMD} DIRECTORY)
   ###MESSAGE( STATUS " *** MakeRootMap ${genmap_install_dir}/../bin $ENV{DD4hep_DIR}/bin ${DD4hep_DIR}" )
   MESSAGE( STATUS " *** MakeGaudiMap.cmake run command : ${Gaudi_listcomponents_CMD} -o ${rootmapfile} ${libname}
