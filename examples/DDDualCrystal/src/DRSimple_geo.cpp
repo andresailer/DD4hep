@@ -171,7 +171,7 @@ TH1 the angle w.r.t. the y axis from the centre of low y edge to the centre of t
     towerVol.setVisAttributes(description, x_det.visStr());
     string t_name = iside==0 ? _toString(itower,"towerp%d") : _toString(itower,"towerm%d");
     DetElement tower_det(t_name,det_id);  // detector element for a tower
-    towerVol.setSensitiveDetector(sens);
+    //towerVol.setSensitiveDetector(sens);
 
     //passive
     dd4hep::Trap absstrap((thick)/2.,aatheta,0.,inphil/2-2.*tol,delzb/2.-2.*tol,delzb/2.-2.*tol,0.,outphil/2.-2.*tol,delzt/2.-2.*tol,delzt/2.-2.*tol,0.);
@@ -199,7 +199,7 @@ TH1 the angle w.r.t. the y axis from the centre of low y edge to the centre of t
     std::cout<<"fX_core.isSensitive is "<<fX_core.isSensitive()<<std::endl;
     if ( fX_core.isSensitive() ) {
       std::cout<<"setting DRSimple fiber sensitive "<<std::endl;
-      //fiberVol.setSensitiveDetector(sens);
+      fiberVol.setSensitiveDetector(sens);
     }
     string f_name = iside==0 ? _toString(itower,"fiberp%d") : _toString(itower,"fiberm%d");
     DetElement fiber_det(abs_det,f_name,det_id);  // detector element for absorber

@@ -25,8 +25,8 @@
 <dimensions numsides="32" nz="10" rmin="DRinnerRadius" thickness="180" z_length="306." />
 <!-- not in core and hole rmind is not used -->
       <structure>
-        <core name="core" rmax="5.0*mm" rmin="80.0*mm" material="PMMA" vis="CerenVis" sensitive="yes"/> 
-        <hole name="hole" rmax="10.0*mm" rmin="80.0*mm" material="Air" vis="GenericVis" sensitive="no"/> 
+        <core name="core" rmax="50.0*mm" rmin="80.0*mm" material="PMMA" vis="CerenVis" sensitive="yes"/> 
+        <hole name="hole" rmax="51.0*mm" rmin="80.0*mm" material="Air" vis="GenericVis" sensitive="no"/> 
       </structure>
  <barrel material="Copper" vis="TowerVis">
  </barrel>
