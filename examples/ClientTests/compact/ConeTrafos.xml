@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lccdd>
+
+  <!-- #==========================================================================
+       #  AIDA Detector description implementation
+       #==========================================================================
+       # Copyright (C) Organisation europeenne pour la Recherche nucleaire (CERN)
+       # All rights reserved.
+       #
+       # For the licensing terms see $DD4hepINSTALL/LICENSE.
+       # For the list of contributors see $DD4hepINSTALL/doc/CREDITS.
+       #
+       #==========================================================================
+  -->
+  <info name="con_boxes"
+        title="ConeSegment Example"
+        author="Andre Sailer"
+        url="http://www.cern.ch/lhcb"
+        status="development"
+        version="1">
+    <comment>A sensitive Cone</comment>
+  </info>
+
+  <includes>
+    <gdmlFile  ref="${DD4hepINSTALL}/DDDetectors/compact/elements.xml"/>
+    <gdmlFile  ref="${DD4hepINSTALL}/DDDetectors/compact/materials.xml"/>
+  </includes>
+
+  <define>
+    <constant name="world_side" value="30000"/>
+    <constant name="world_x" value="world_side"/>
+    <constant name="world_y" value="world_side"/>
+    <constant name="world_z" value="world_side"/>
+
+    <constant name="QC1_rmin" value="42/2*mm"/>
+    <constant name="QC1_rmax" value="64/2*mm"/>
+    <constant name="QC1L1_len" value="700*mm"/>
+    <constant name="QC1L2_len" value="1250*mm"/>
+    <constant name="QC1L3_len" value="1250*mm"/>
+    <constant name="QC1L1_start" value="2200*mm"/>
+    <constant name="QC1L2_start" value="QC1L1_start+QC1L1_len+8*cm"/>
+    <constant name="QC1L3_start" value="QC1L2_start+QC1L2_len+8*cm"/>
+
+    <constant name="CrossingAngle" value="30*mrad"/>
+
+  </define>
+
+  <detectors>
+    <detector id="1" name="QC1a" type="DD4hep_ConeSegment" readout="FF1_Readout" vis="VisibleGreen" sensitive="true">
+      <sensitive type="tracker"/>
+      <material name="Iron"/>
+      <cone rmin1="QC1_rmin" rmax1="QC1_rmax" rmin2="QC1_rmin" rmax2="QC1_rmax" dz="QC1L1_len/2" />
+      <position x="tan(0.5*abs(CrossingAngle))*(QC1L1_start+QC1L1_len/2)" y="0" z="(QC1L1_start+QC1L1_len/2)"/>
+      <rotation x="0" y="-0.5*abs(CrossingAngle)" z="0"/>
+    </detector>
+
+    <detector id="2" name="QC1b" type="DD4hep_ConeSegment" readout="FF1_Readout" vis="VisibleGreen" sensitive="true" >
+      <sensitive type="tracker"/>
+      <material name="Iron"/>
+      <cone rmin1="QC1_rmin" rmax1="QC1_rmax" rmin2="QC1_rmin" rmax2="QC1_rmax" dz="QC1L1_len/2" />
+      <position x="tan(0.5*abs(CrossingAngle))*(QC1L1_start+QC1L1_len/2)" y="0" z="-(QC1L1_start+QC1L1_len/2)"/>
+      <rotation x="0" y="0.5*abs(CrossingAngle)" z="0"/>
+    </detector>
+
+    <detector id="3" name="QC1c" type="DD4hep_ConeSegment" readout="FF1_Readout" vis="VisibleGreen" sensitive="true" >
+      <sensitive type="tracker"/>
+      <material name="Iron"/>
+      <cone rmin1="QC1_rmin" rmax1="QC1_rmax" rmin2="QC1_rmin" rmax2="QC1_rmax" dz="QC1L1_len/2"   />
+      <position x="-tan(0.5*abs(CrossingAngle))*(QC1L1_start+QC1L1_len/2)" y="0" z="(QC1L1_start+QC1L1_len/2)"/>
+      <rotation x="0" y="0.5*abs(CrossingAngle)" z="0"/>
+    </detector>
+    
+    <detector id="4" name="QC1d" type="DD4hep_ConeSegment" readout="FF1_Readout" vis="VisibleGreen" sensitive="true" >
+      <sensitive type="tracker"/>
+      <material name="Iron"/>
+      <cone rmin1="QC1_rmin" rmax1="QC1_rmax" rmin2="QC1_rmin" rmax2="QC1_rmax" dz="QC1L1_len/2"   />
+      <position x="-tan(0.5*abs(CrossingAngle))*(QC1L1_start+QC1L1_len/2)" y="0" z="-(QC1L1_start+QC1L1_len/2)"/>
+      <rotation x="0" y="-0.5*abs(CrossingAngle)" z="0"/>
+    </detector>
+    
+  </detectors>
+
+  <readouts>
+    <readout name="FF1_Readout">
+      <id>system:8</id>
+    </readout>
+  </readouts>
+
+</lccdd>
