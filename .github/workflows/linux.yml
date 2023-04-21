@@ -17,6 +17,12 @@ jobs:
               "dev3/x86_64-centos7-gcc11-opt",
               "dev4/x86_64-centos7-gcc11-opt"]
     steps:
+    - name: Prepare Artifact Name
+      run: |
+          artifact_name="${{ matrix.LCG }}"
+          artifact_name=$(echo -n "${artifact_name}" | sed -e 's@/@@g')
+          echo "ARTIFACT_NAME=${artifact_name}" >> $GITHUB_ENV
+
     - uses: actions/checkout@v3
     - uses: cvmfs-contrib/github-action-cvmfs@v3
     - uses: aidasoft/run-lcg-view@v3
@@ -58,10 +64,6 @@ jobs:
           ninja install
           echo "::group::TestExamples"
           ctest --output-on-failure -j2 --output-junit TestResults_2.xml
-          echo "::group::PrepareArtifact"
-          artifact_name="${{ matrix.LCG }}"
-          artifact_name=$(echo -n "${artifact_name}" | sed -e 's@/@@g')
-          echo "ARTIFACT_NAME=${artifact_name}" >> $GITHUB_ENV
 
     - name: Upload test results
       uses: actions/upload-artifact@v3
