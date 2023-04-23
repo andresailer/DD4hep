@@ -64,7 +64,9 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Test Results ${{ env.ARTIFACT_NAME }}
-        path: /home/runner/work/DD4hep/DD4hep/build/TestResults_*.xml
+        path: |
+           /home/runner/work/DD4hep/DD4hep/build/TestResults_1.xml
+           /home/runner/work/DD4hep/DD4hep/examples/build/TestResults_2.xml
 
 
   non-shared:
