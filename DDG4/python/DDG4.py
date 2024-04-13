@@ -11,7 +11,6 @@
 from __future__ import absolute_import, unicode_literals
 import logging
 from dd4hep_base import *  # noqa: F403
-import ddsix as six
 
 logger = logging.getLogger(__name__)
 
@@ -634,7 +633,7 @@ class Geant4:
       collections = ro.collectionNames()
       if len(collections) == 0:
         act = SensitiveAction(self.kernel(), sensitive_type + '/' + name + 'Handler', name)
-        for parameter, value in six.iteritems(parameterDict):
+        for parameter, value in parameterDict.items():
           setattr(act, parameter, value)
         acts.append(act)
 
@@ -656,7 +655,7 @@ class Geant4:
           coll_nam = str(coll)
         act = SensitiveAction(self.kernel(), sensitive_type + '/' + coll_nam + 'Handler', name)
         act.CollectionName = coll_nam
-        for parameter, value in six.iteritems(params):
+        for parameter, value in params.items():
           setattr(act, parameter, value)
         acts.append(act)
 
