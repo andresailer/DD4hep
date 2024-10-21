@@ -4,23 +4,18 @@ on: [push, pull_request]
 
 jobs:
   macOS:
-    runs-on: macos-10.15
-    strategy:
-      matrix:
-        LCG: ["LCG_98python3/x86_64-mac1015-clang110-opt",
-              "LCG_99/x86_64-mac1015-clang120-opt"]
+    runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: cvmfs-contrib/github-action-cvmfs@v2
-      with:
-        cvmfs_repositories: 'sft.cern.ch,geant4.cern.ch'
-    - uses: aidasoft/run-lcg-view@v1
-      with:
-        release-platform: ${{ matrix.LCG }}
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Brew install
+      run: |
+        brew install root boost cmake ninja
+    -name: Compile
         run: |
           mkdir build
           cd build
-          cmake -GNinja -DDD4HEP_USE_GEANT4=ON -DBoost_NO_BOOST_CMAKE=ON -DDD4HEP_USE_LCIO=ON -DBUILD_TESTING=ON -DDD4HEP_USE_XERCESC=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=17 ..
+          cmake -GNinja -DDD4HEP_USE_GEANT4=OFF -DBoost_NO_BOOST_CMAKE=ON -DDD4HEP_USE_LCIO=OFF -DBUILD_TESTING=ON  -DDD4HEP_USE_XERCESC=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=20 ..
           ninja
           ninja install
           . ../bin/thisdd4hep.sh
@@ -28,7 +23,7 @@ jobs:
           cd ../examples/
           mkdir build
           cd build
-          cmake -GNinja -DBoost_NO_BOOST_CMAKE=ON -DDD4HEP_USE_XERCESC=ON -DCMAKE_CXX_STANDARD=17 ..
+          cmake -GNinja -DBoost_NO_BOOST_CMAKE=ON -DDD4HEP_USE_XERCESC=OFF -DCMAKE_CXX_STANDARD=20 ..
           ninja
           ninja install
           ctest --output-on-failure -E t_ClientTests_Check_Shape_Eightpoint_Reflect_DetElement
