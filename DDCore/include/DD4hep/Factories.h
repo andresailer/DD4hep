@@ -325,7 +325,9 @@ namespace {
 // Call function of the type [NamedObject* (*func)(dd4hep::Detector& description, xml_h handle, ref_t reference)]
 #define DECLARE_XML_PROCESSOR_BASIC(name,func,deprecated)  DD4HEP_OPEN_PLUGIN(dd4hep,det_element_##name) {\
     template <> Ref_t XmlDetElementFactory< det_element_##name >::create(dd4hep::Detector& l,ns::xml_h e,ns::ref_t h) \
-    { if (deprecated) warning_deprecated_xml_factory(#name); return func(l,e,h);} \
+    { if (deprecated==1) warning_deprecated_xml_factory(#name); \
+      if (deprecated==2) warning_broken_xml_factory(#name);     \
+      return func(l,e,h);}                                      \
     DD4HEP_PLUGINSVC_FACTORY(det_element_##name,name,NamedObject*(dd4hep::Detector*,ns::xml_h*,Ref_t*),__LINE__)  }
 
 // Call function of the type [NamedObject* (*func)(dd4hep::Detector& description, json_h handle, ref_t reference)]
@@ -338,6 +340,7 @@ namespace {
 #define DECLARE_SUBDETECTOR(name,func)            DECLARE_XML_PROCESSOR_BASIC(name,func,0)
 #define DECLARE_DETELEMENT(name,func)             DECLARE_XML_PROCESSOR_BASIC(name,func,0)
 #define DECLARE_DEPRECATED_DETELEMENT(name,func)  DECLARE_XML_PROCESSOR_BASIC(name,func,1)
+#define DECLARE_BROKEN_DETELEMENT(name,func)      DECLARE_XML_PROCESSOR_BASIC(name,func,2)
 
 #define DECLARE_JSON_DETELEMENT(name,func)        DECLARE_JSON_PROCESSOR_BASIC(name,func)
 

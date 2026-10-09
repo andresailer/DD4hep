@@ -375,6 +375,17 @@ namespace dd4hep  {
     std::cerr << "++  Please use \"DD4hep_" << name << "\" instead." << std::setw(93-len) << std::right << "++" << std::endl;
     std::cerr << edge << edge << edge << std::endl;
   }
+
+  void warning_broken_xml_factory(const char* name)   {
+    const char* edge = "++++++++++++++++++++++++++++++++++++++++++";
+    size_t len = std::strlen(name);
+    std::cerr << edge << edge << edge << std::endl;
+    std::cerr << "++  The usage of the factory: \"" << name << "\" is DEPRECATED due to bugs in its implementation."
+              << std::setw(45-len) << std::right << "++" << std::endl;
+    std::cerr << "++  Please use an updated version instead!" << std::setw(102-len) << std::right << "++" << std::endl;
+    std::cerr << edge << edge << edge << std::endl;
+  }
+
 }
 
 #include <DDSegmentation/Segmentation.h>

@@ -43,8 +43,11 @@ namespace dd4hep {
   long num_object_validations();
   void increment_object_validations();
 
-  /// Function tp print warning about deprecated factory usage. Used by Plugin mechanism.
+  /// Function to print warning about deprecated factory usage. Used by Plugin mechanism.
   void warning_deprecated_xml_factory(const char* name);
+
+  /// Function to print warning about broken factories. Used by Plugin mechanism.
+  void warning_broken_xml_factory(const char* name);
 
 
   /// Access to the magic word, which is protecting some objects against memory corruptions  \ingroup DD4HEP_CORE
